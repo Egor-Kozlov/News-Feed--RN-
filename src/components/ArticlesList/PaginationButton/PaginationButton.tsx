@@ -1,25 +1,31 @@
 import React, {FC} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Button} from 'react-native-paper';
 
 import COLORS from '../../../constants/colors';
 
 interface PaginationButtonProps {
   label: string;
+  onPress: () => void;
+  disabled?: boolean;
 }
 
-const PaginationButton: FC<PaginationButtonProps> = ({label}) => {
-  const Label = () => {
-    return <Text style={styles.label}>{label}</Text>;
-  };
-
+const PaginationButton: FC<PaginationButtonProps> = ({
+  label,
+  onPress,
+  disabled,
+}) => {
   return (
     <View style={styles.buttonContainer}>
       <Button
         mode="text"
-        children={<Label />}
-        onPress={() => console.log('press')}
-      />
+        onPress={onPress}
+        disabled={disabled}
+        labelStyle={
+          disabled ? [styles.label, styles.labelInactive] : styles.label
+        }>
+        {label}
+      </Button>
     </View>
   );
 };
@@ -34,5 +40,8 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: 'Montserrat-Bold',
     textAlign: 'center',
+  },
+  labelInactive: {
+    color: COLORS.gray,
   },
 });

@@ -16,6 +16,7 @@ const Section: FC<ArticleProps> = ({article, onPicturePress}) => {
         <Text style={styles.title}>{article.title}</Text>
       </View>
       <TouchableOpacity
+        activeOpacity={0.7}
         style={styles.imageContainer}
         onPress={() => onPicturePress(article.url, article.title)}>
         <Image source={{uri: article.imageUrl}} style={styles.image} />
