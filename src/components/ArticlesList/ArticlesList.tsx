@@ -1,8 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {FC, useCallback, useState} from 'react';
-import {StyleSheet, FlatList, View} from 'react-native';
+import {StyleSheet, FlatList, View, Alert} from 'react-native';
 
 import {Article} from '../../types';
+import ModalWindow from '../ModalWindow/ModalWindow';
 
 import Pagination from './Pagination/Pagination';
 import Section from './Section/Section';
@@ -23,6 +24,17 @@ const ArticlesList: FC<ArticlesListProps> = ({
   const navigation = useNavigation();
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [articleForEdit, setArticleForEdit] = useState<string | null>(null);
+
+  const showModal = (articleTitle: string): void => {
+    setArticleForEdit(articleTitle);
+    setVisible(true);
+  };
+  const hideModal = (): void => {
+    setArticleForEdit(null);
+    setVisible(false);
+  };
 
   const navigateToArticleWebView = useCallback(
     (articleUrl: string, articleTitle: string) => {
@@ -37,7 +49,7 @@ const ArticlesList: FC<ArticlesListProps> = ({
     [navigation],
   );
 
-  const onRefresh = () => {
+  const onRefresh = (): void => {
     refreshList();
   };
 
@@ -51,8 +63,32 @@ const ArticlesList: FC<ArticlesListProps> = ({
     return articles.slice(startIndex, endIndex);
   };
 
+  const onDeleteArticle = useCallback((title: string): void => {
+    console.log(title);
+    Alert.alert(
+      'Delete article',
+      `Are you sure you want to delete article "${title}"?`,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+    );
+  }, []);
+
+  const onEditArticle = useCallback((title: string): void => {
+    console.log(title);
+  }, []);
+
   return (
     <View style={styles.mainContainer}>
+      <ModalWindow
+        visible={visible}
+        onDismiss={hideModal}
+        articleTitle={articleForEdit}
+      />
       <FlatList
         data={
           articles.length > 0
@@ -60,7 +96,12 @@ const ArticlesList: FC<ArticlesListProps> = ({
             : articles
         }
         renderItem={({item}) => (
-          <Section article={item} onPicturePress={navigateToArticleWebView} />
+          <Section
+            article={item}
+            onPicturePress={navigateToArticleWebView}
+            onShowModal={showModal}
+            onDeleteArticle={onDeleteArticle}
+          />
         )}
         keyExtractor={item => item.title}
         style={styles.list}
@@ -88,5 +129,6 @@ const styles = StyleSheet.create({
   },
   columnWrapper: {
     rowGap: 16,
+    paddingTop: 30,
   },
 });

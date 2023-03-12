@@ -8,9 +8,18 @@ import ButtonIcon from '../../ButtonIcon/ButtonIcon';
 interface ArticleProps {
   article: Article;
   onPicturePress: (articleUrl: string, articleTitle: string) => void;
+  onEditArticle: (title: string) => void;
+  onDeleteArticle: (title: string) => void;
+  onShowModal: (title: string) => void;
 }
 
-const Section: FC<ArticleProps> = ({article, onPicturePress}) => {
+const Section: FC<ArticleProps> = ({
+  article,
+  onPicturePress,
+  onEditArticle,
+  onDeleteArticle,
+  onShowModal,
+}) => {
   const onPressHandler = (): void => {
     onPicturePress(article.url, article.title);
   };
@@ -27,8 +36,16 @@ const Section: FC<ArticleProps> = ({article, onPicturePress}) => {
         <Image source={{uri: article.imageUrl}} style={styles.image} />
       </TouchableOpacity>
       <View style={styles.actionsContainer}>
-        <ButtonIcon iconName="comment-edit" label="Edit" />
-        <ButtonIcon iconName="delete-outline" label="Remove" />
+        <ButtonIcon
+          iconName="comment-edit"
+          label="Edit"
+          onPress={() => onShowModal(article.title)}
+        />
+        <ButtonIcon
+          iconName="delete-outline"
+          label="Remove"
+          onPress={() => onDeleteArticle(article.title)}
+        />
       </View>
     </View>
   );

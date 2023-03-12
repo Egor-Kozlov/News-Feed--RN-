@@ -24,7 +24,6 @@ const NewsFeed = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <Text>Last News For Today:</Text>
       {loading && articles.length === 0 ? (
         <View style={styles.activityIndicatorContainer}>
           <ActivityIndicator size={40} />

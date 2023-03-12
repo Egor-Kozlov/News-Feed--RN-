@@ -25,7 +25,13 @@ const articlesSlice = createSlice({
   name: 'articles',
   initialState,
   reducers: {
-    // fill in primary logic here
+    changeArticleTitle: (state, action) => {
+      const {title} = action.payload;
+      const article = state.articles.find(a => a.title === title);
+      if (article) {
+        article.title = title;
+      }
+    },
   },
   extraReducers: builder => {
     builder.addCase(fetchArticles.pending, (state, action) => {
@@ -42,4 +48,5 @@ const articlesSlice = createSlice({
   },
 });
 
-export const {reducer} = articlesSlice;
+export const {changeArticleTitle} = articlesSlice.actions;
+export default articlesSlice.reducer;
