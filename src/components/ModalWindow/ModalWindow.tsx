@@ -8,16 +8,15 @@ import ButtonIcon from '../ButtonIcon/ButtonIcon';
 interface ModalWindowProps {
   visible: boolean;
   onDismiss: () => void;
-  articleTitle: string | null;
+  onEditArticle: (title: string) => void;
 }
 
 const ModalWindow: FC<ModalWindowProps> = ({
   visible,
   onDismiss,
-  articleTitle,
+  onEditArticle,
 }) => {
   const [title, setTitle] = useState<string>();
-  console.log('articleTitle: ', articleTitle);
 
   return (
     <Portal>
@@ -41,7 +40,8 @@ const ModalWindow: FC<ModalWindowProps> = ({
             iconName="check"
             label="Save"
             onPress={() => {
-              console.log('title: ', title);
+              onEditArticle(title);
+              setTitle('');
             }}
           />
           <ButtonIcon iconName="close" label="Cancel" onPress={onDismiss} />

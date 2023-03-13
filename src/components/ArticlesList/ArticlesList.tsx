@@ -1,7 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {FC, useCallback, useState} from 'react';
 import {StyleSheet, FlatList, View, Alert} from 'react-native';
+import {useDispatch} from 'react-redux';
 
+import {deleteArticle, changeArticleTitle} from '../../store/slices/articles';
 import {Article} from '../../types';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
@@ -22,6 +24,7 @@ const ArticlesList: FC<ArticlesListProps> = ({
   isLoading,
 }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [visible, setVisible] = useState<boolean>(false);
@@ -63,31 +66,34 @@ const ArticlesList: FC<ArticlesListProps> = ({
     return articles.slice(startIndex, endIndex);
   };
 
-  const onDeleteArticle = useCallback((title: string): void => {
-    console.log(title);
-    Alert.alert(
-      'Delete article',
-      `Are you sure you want to delete article "${title}"?`,
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ],
-    );
-  }, []);
+  const onDeleteArticle = useCallback(
+    (title: string): void => {
+      Alert.alert(
+        'Delete article',
+        `Are you sure you want to delete article "${title}"?`,
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: () => dispatch(deleteArticle(title))},
+        ],
+      );
+    },
+    [dispatch],
+  );
 
-  const onEditArticle = useCallback((title: string): void => {
-    console.log(title);
-  }, []);
+  const onEditArticle = (title: string): void => {
+    dispatch(changeArticleTitle({oldTitle: articleForEdit, newTitle: title}));
+    hideModal();
+  };
 
   return (
     <View style={styles.mainContainer}>
       <ModalWindow
         visible={visible}
         onDismiss={hideModal}
-        articleTitle={articleForEdit}
+        onEditArticle={onEditArticle}
       />
       <FlatList
         data={
