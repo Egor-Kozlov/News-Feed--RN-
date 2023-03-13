@@ -1,21 +1,21 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import {Article} from '~/types';
+import {IArticle} from '../../types';
 
 export const fetchArticles = createAsyncThunk('fetchArticles', async () => {
   const response = await fetch(
     'https://storage.googleapis.com/aller-structure-task/article_list.json',
   );
-  return (await response.json()) as Article[];
+  return (await response.json()) as IArticle[];
 });
 
-interface ArticlesState {
-  articles: Article[];
+interface IArticlesState {
+  articles: IArticle[];
   loading: boolean;
   error: string;
 }
 
-const initialState: ArticlesState = {
+const initialState: IArticlesState = {
   articles: [],
   loading: false,
   error: '',
