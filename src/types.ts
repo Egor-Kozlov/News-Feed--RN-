@@ -1,12 +1,22 @@
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+
+export enum ROUTES {
+  NewsFeed = 'NewsFeed',
+  ArticleDetail = 'ArticleDetail',
+}
+
+export type RootStackParamList = {
+  [ROUTES.NewsFeed]: undefined;
+  [ROUTES.ArticleDetail]: {url: string; headerTitle: string};
+};
+
+export type Props = NativeStackScreenProps<
+  RootStackParamList,
+  ROUTES.ArticleDetail
+>;
+
 export interface IArticle {
   url: string;
   title: string;
   imageUrl: string;
-}
-
-export interface IRoute {
-  params: {key: string; headerTitle: string; path: unknown; url: string};
-  key: string;
-  name: string;
-  path: unknown;
 }

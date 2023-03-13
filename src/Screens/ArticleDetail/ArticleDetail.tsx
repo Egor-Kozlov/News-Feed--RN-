@@ -3,15 +3,11 @@ import {View} from 'react-native';
 import {ProgressBar} from 'react-native-paper';
 import {WebView} from 'react-native-webview';
 
-import {IRoute as RouteInterface} from '../../types';
+import {Props} from '~/types';
 
 import styles from './styles';
 
-interface IArticleDetailProps {
-  route?: RouteInterface;
-}
-
-const ArticleDetail: FC<IArticleDetailProps> = ({route}) => {
+const ArticleDetail: FC<Props> = ({route}) => {
   const [loadingProgress, setLoadingProgress] = useState<number>(0);
 
   return (
