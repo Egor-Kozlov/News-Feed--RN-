@@ -1,9 +1,10 @@
 import React, {FC, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {Portal, Modal, TextInput} from 'react-native-paper';
 
-import COLORS from '../../constants/colors';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
+
+import styles from './styles';
 
 interface ModalWindowProps {
   visible: boolean;
@@ -52,25 +53,3 @@ const ModalWindow: FC<ModalWindowProps> = ({
 };
 
 export default ModalWindow;
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    paddingBottom: 15,
-    backgroundColor: COLORS.white,
-    marginHorizontal: 20,
-  },
-  title: {
-    fontSize: 15,
-    fontFamily: 'Montserrat-SemiBold',
-    color: COLORS.blue_dark,
-  },
-  inputContainer: {
-    marginTop: 10,
-  },
-  actionsContainer: {
-    marginTop: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-});

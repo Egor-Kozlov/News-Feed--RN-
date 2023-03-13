@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import {Button} from 'react-native-paper';
 
 import COLORS from '../../constants/colors';
@@ -12,7 +12,7 @@ interface ButtonIconProps {
 
 const ButtonIcon: FC<ButtonIconProps> = ({label, iconName, onPress}) => {
   return (
-    <View style={styles.buttonContainer}>
+    <View>
       <Button
         icon={iconName}
         onPress={onPress}
@@ -28,7 +28,3 @@ const ButtonIcon: FC<ButtonIconProps> = ({label, iconName, onPress}) => {
 };
 
 export default ButtonIcon;
-
-const styles = StyleSheet.create({
-  buttonContainer: {},
-});

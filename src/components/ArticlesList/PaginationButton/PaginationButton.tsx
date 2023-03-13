@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import {Button} from 'react-native-paper';
 
-import COLORS from '../../../constants/colors';
+import styles from './styles';
 
 interface PaginationButtonProps {
   label: string;
@@ -31,17 +31,3 @@ const PaginationButton: FC<PaginationButtonProps> = ({
 };
 
 export default PaginationButton;
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    width: 120,
-  },
-  label: {
-    color: COLORS.white,
-    fontFamily: 'Montserrat-Bold',
-    textAlign: 'center',
-  },
-  labelInactive: {
-    color: COLORS.gray,
-  },
-});

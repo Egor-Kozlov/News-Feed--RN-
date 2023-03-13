@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    // borderWidth: 1,
   },
   page: {
     color: COLORS.white,

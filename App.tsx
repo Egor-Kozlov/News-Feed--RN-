@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Provider as ModalProvider, Portal} from 'react-native-paper';
+import {Provider as ModalProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
 
 import RootRouter from './src/Router/RootRouter';

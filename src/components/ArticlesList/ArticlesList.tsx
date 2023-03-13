@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {FC, useCallback, useState} from 'react';
-import {StyleSheet, FlatList, View, Alert} from 'react-native';
+import {FlatList, View, Alert, Text} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import {deleteArticle, changeArticleTitle} from '../../store/slices/articles';
@@ -9,34 +9,35 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 
 import Pagination from './Pagination/Pagination';
 import Section from './Section/Section';
+import styles from './styles';
 
 interface ArticlesListProps {
   articles: Article[];
   refreshList: () => void;
   isLoading: boolean;
+  countOfArticlesPerPage?: number;
 }
-
-const COUNT_OF_ARTICLES_PER_PAGE = 10;
 
 const ArticlesList: FC<ArticlesListProps> = ({
   articles,
   refreshList,
   isLoading,
+  countOfArticlesPerPage = 10,
 }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [visible, setVisible] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [articleForEdit, setArticleForEdit] = useState<string | null>(null);
 
   const showModal = (articleTitle: string): void => {
     setArticleForEdit(articleTitle);
-    setVisible(true);
+    setIsModalVisible(true);
   };
   const hideModal = (): void => {
     setArticleForEdit(null);
-    setVisible(false);
+    setIsModalVisible(false);
   };
 
   const navigateToArticleWebView = useCallback(
@@ -91,14 +92,14 @@ const ArticlesList: FC<ArticlesListProps> = ({
   return (
     <View style={styles.mainContainer}>
       <ModalWindow
-        visible={visible}
+        visible={isModalVisible}
         onDismiss={hideModal}
         onEditArticle={onEditArticle}
       />
       <FlatList
         data={
           articles.length > 0
-            ? cutArticles(articles, currentPage, COUNT_OF_ARTICLES_PER_PAGE)
+            ? cutArticles(articles, currentPage, countOfArticlesPerPage)
             : articles
         }
         renderItem={({item}) => (
@@ -114,27 +115,15 @@ const ArticlesList: FC<ArticlesListProps> = ({
         contentContainerStyle={styles.columnWrapper}
         refreshing={isLoading}
         onRefresh={onRefresh}
+        ListEmptyComponent={<Text>No articles found. Pull to refresh.</Text>}
       />
       <Pagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        countOfPages={Math.ceil(articles.length / COUNT_OF_ARTICLES_PER_PAGE)}
+        countOfPages={Math.ceil(articles.length / countOfArticlesPerPage)}
       />
     </View>
   );
 };
 
 export default ArticlesList;
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-  },
-  list: {
-    flex: 1,
-  },
-  columnWrapper: {
-    rowGap: 16,
-    paddingTop: 30,
-  },
-});
