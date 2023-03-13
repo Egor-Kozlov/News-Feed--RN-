@@ -98,7 +98,7 @@ const ArticlesList: FC<ArticlesListProps> = ({
       />
       <FlatList
         data={
-          articles.length > 0
+          articles?.length > 0
             ? cutArticles(articles, currentPage, countOfArticlesPerPage)
             : articles
         }
@@ -120,7 +120,7 @@ const ArticlesList: FC<ArticlesListProps> = ({
       <Pagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        countOfPages={Math.ceil(articles.length / countOfArticlesPerPage)}
+        countOfPages={Math.ceil(articles?.length / countOfArticlesPerPage)}
       />
     </View>
   );

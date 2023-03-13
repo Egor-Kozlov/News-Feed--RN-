@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -15,8 +15,14 @@ const NewsFeed = () => {
   const {articles, loading} = useSelector((state: RootState) => state.articles);
 
   useEffect(() => {
-    getArticles();
+    if (checkIfArticlesAreEmpty()) {
+      getArticles();
+    }
   }, []);
+
+  const checkIfArticlesAreEmpty = () => {
+    return articles?.length === 0;
+  };
 
   const getArticles = () => {
     dispatch(fetchArticles());
@@ -24,7 +30,7 @@ const NewsFeed = () => {
 
   return (
     <View style={styles.mainContainer}>
-      {loading && articles.length === 0 ? (
+      {loading && articles && articles?.length === 0 ? (
         <View style={styles.activityIndicatorContainer}>
           <ActivityIndicator size={40} />
         </View>
