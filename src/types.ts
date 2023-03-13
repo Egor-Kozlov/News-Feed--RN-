@@ -1,10 +1,10 @@
-export interface Article {
+export interface IArticle {
   url: string;
   title: string;
   imageUrl: string;
 }
 
-export interface Route {
+export interface IRoute {
   params: {
     url: string;
     headerTitle: string;

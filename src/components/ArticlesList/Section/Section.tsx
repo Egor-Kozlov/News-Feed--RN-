@@ -1,19 +1,19 @@
 import React, {FC} from 'react';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 
-import {Article} from '../../../types';
+import {IArticle} from '../../../types';
 import ButtonIcon from '../../ButtonIcon/ButtonIcon';
 
 import styles from './styles';
 
-interface ArticleProps {
-  article: Article;
+interface IArticleProps {
+  article: IArticle;
   onPicturePress: (articleUrl: string, articleTitle: string) => void;
   onDeleteArticle: (title: string) => void;
   onShowModal: (title: string) => void;
 }
 
-const Section: FC<ArticleProps> = ({
+const Section: FC<IArticleProps> = ({
   article,
   onPicturePress,
   onDeleteArticle,

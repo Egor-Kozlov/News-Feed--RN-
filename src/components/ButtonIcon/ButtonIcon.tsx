@@ -4,13 +4,13 @@ import {Button} from 'react-native-paper';
 
 import COLORS from '../../constants/colors';
 
-interface ButtonIconProps {
+interface IButtonIconProps {
   label: string;
   iconName: string;
   onPress: () => void;
 }
 
-const ButtonIcon: FC<ButtonIconProps> = ({label, iconName, onPress}) => {
+const ButtonIcon: FC<IButtonIconProps> = ({label, iconName, onPress}) => {
   return (
     <View>
       <Button

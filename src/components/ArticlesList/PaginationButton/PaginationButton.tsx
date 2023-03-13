@@ -4,13 +4,13 @@ import {Button} from 'react-native-paper';
 
 import styles from './styles';
 
-interface PaginationButtonProps {
+interface IPaginationButtonProps {
   label: string;
   onPress: () => void;
   disabled?: boolean;
 }
 
-const PaginationButton: FC<PaginationButtonProps> = ({
+const PaginationButton: FC<IPaginationButtonProps> = ({
   label,
   onPress,
   disabled,

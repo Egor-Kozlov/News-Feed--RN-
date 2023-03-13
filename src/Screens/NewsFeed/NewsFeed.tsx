@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, FC} from 'react';
 import {View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
@@ -10,7 +10,7 @@ import {fetchArticles} from '../../store/slices/articles';
 
 import styles from './styles';
 
-const NewsFeed = () => {
+const NewsFeed: FC = () => {
   const dispatch = useDispatch();
   const {articles, loading} = useSelector((state: RootState) => state.articles);
 
@@ -25,7 +25,7 @@ const NewsFeed = () => {
   };
 
   const getArticles = () => {
-    dispatch(fetchArticles());
+    dispatch(fetchArticles() as any);
   };
 
   return (

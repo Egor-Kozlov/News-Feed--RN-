@@ -6,18 +6,23 @@ import ButtonIcon from '../ButtonIcon/ButtonIcon';
 
 import styles from './styles';
 
-interface ModalWindowProps {
+interface IModalWindowProps {
   visible: boolean;
   onDismiss: () => void;
   onEditArticle: (title: string) => void;
 }
 
-const ModalWindow: FC<ModalWindowProps> = ({
+const ModalWindow: FC<IModalWindowProps> = ({
   visible,
   onDismiss,
   onEditArticle,
 }) => {
-  const [title, setTitle] = useState<string>();
+  const [title, setTitle] = useState<string>('');
+
+  const onSavePress = (): void => {
+    onEditArticle(title);
+    setTitle('');
+  };
 
   return (
     <Portal>
@@ -37,14 +42,7 @@ const ModalWindow: FC<ModalWindowProps> = ({
           />
         </View>
         <View style={styles.actionsContainer}>
-          <ButtonIcon
-            iconName="check"
-            label="Save"
-            onPress={() => {
-              onEditArticle(title);
-              setTitle('');
-            }}
-          />
+          <ButtonIcon iconName="check" label="Save" onPress={onSavePress} />
           <ButtonIcon iconName="close" label="Cancel" onPress={onDismiss} />
         </View>
       </Modal>

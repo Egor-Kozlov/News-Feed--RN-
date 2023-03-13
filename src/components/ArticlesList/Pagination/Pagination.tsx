@@ -4,13 +4,13 @@ import {StyleSheet, View, SafeAreaView, Text} from 'react-native';
 import COLORS from '../../../constants/colors';
 import PaginationButton from '../PaginationButton/PaginationButton';
 
-interface PaginationProps {
+interface IPaginationProps {
   currentPage: number;
   setCurrentPage: (currentPage: number) => void;
   countOfPages: number;
 }
 
-const Pagination: FC<PaginationProps> = ({
+const Pagination: FC<IPaginationProps> = ({
   currentPage,
   setCurrentPage,
   countOfPages,

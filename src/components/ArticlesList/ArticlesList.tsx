@@ -4,7 +4,7 @@ import {FlatList, View, Alert, Text} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import {deleteArticle, changeArticleTitle} from '../../store/slices/articles';
-import {Article} from '../../types';
+import {IArticle} from '../../types';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
 import Pagination from './Pagination/Pagination';
@@ -12,7 +12,7 @@ import Section from './Section/Section';
 import styles from './styles';
 
 interface ArticlesListProps {
-  articles: Article[];
+  articles: IArticle[];
   refreshList: () => void;
   isLoading: boolean;
   countOfArticlesPerPage?: number;
@@ -58,7 +58,7 @@ const ArticlesList: FC<ArticlesListProps> = ({
   };
 
   const cutArticles = (
-    articles: Article[],
+    articles: IArticle[],
     currentPage: number,
     articlesPerPage: number,
   ) => {
