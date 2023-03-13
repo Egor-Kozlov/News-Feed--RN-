@@ -13,5 +13,5 @@
 * npm i
 * cd ./ios
 * pod install
-* npx react-native run-ios from root folder
+* npx react-native run-ios (from root folder)
 

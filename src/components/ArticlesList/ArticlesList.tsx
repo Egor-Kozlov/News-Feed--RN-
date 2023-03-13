@@ -1,10 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {FC, useCallback, useState} from 'react';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import React, {useCallback, useState} from 'react';
 import {FlatList, View, Alert, Text} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import {deleteArticle, changeArticleTitle} from '../../store/slices/articles';
-import {IArticle} from '../../types';
+import {IArticle, ROUTES, RootStackParamList} from '../../types';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
 import Pagination from './Pagination/Pagination';
@@ -18,13 +19,16 @@ interface ArticlesListProps {
   countOfArticlesPerPage?: number;
 }
 
-const ArticlesList: FC<ArticlesListProps> = ({
+const ArticlesList = ({
   articles,
   refreshList,
   isLoading,
   countOfArticlesPerPage = 10,
-}) => {
-  const navigation = useNavigation();
+}: ArticlesListProps) => {
+  const navigation =
+    useNavigation<
+      NativeStackNavigationProp<RootStackParamList, ROUTES.ArticleDetail>
+    >();
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -42,13 +46,10 @@ const ArticlesList: FC<ArticlesListProps> = ({
 
   const navigateToArticleWebView = useCallback(
     (articleUrl: string, articleTitle: string) => {
-      navigation.navigate(
-        'ArticleDetail' as never,
-        {
-          url: articleUrl,
-          headerTitle: articleTitle,
-        } as never,
-      );
+      navigation.navigate(ROUTES.ArticleDetail, {
+        url: articleUrl,
+        headerTitle: articleTitle,
+      });
     },
     [navigation],
   );
