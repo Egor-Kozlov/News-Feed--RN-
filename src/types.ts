@@ -5,10 +5,7 @@ export interface IArticle {
 }
 
 export interface IRoute {
-  params: {
-    url: string;
-    headerTitle: string;
-  };
+  params: {key: string; headerTitle: string; path: unknown; url: string};
   key: string;
   name: string;
   path: unknown;

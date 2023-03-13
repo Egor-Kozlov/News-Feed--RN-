@@ -8,11 +8,10 @@ import {IRoute as RouteInterface} from '../../types';
 import styles from './styles';
 
 interface IArticleDetailProps {
-  route: RouteInterface;
+  route?: RouteInterface;
 }
 
 const ArticleDetail: FC<IArticleDetailProps> = ({route}) => {
-  const {url} = route.params;
   const [loadingProgress, setLoadingProgress] = useState<number>(0);
 
   return (
@@ -23,7 +22,7 @@ const ArticleDetail: FC<IArticleDetailProps> = ({route}) => {
         </View>
       )}
       <WebView
-        source={{uri: url}}
+        source={{uri: route?.params.url ?? ''}}
         onLoadProgress={({nativeEvent}) => {
           setLoadingProgress(nativeEvent.progress);
         }}

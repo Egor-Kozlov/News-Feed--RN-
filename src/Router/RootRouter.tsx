@@ -7,8 +7,8 @@ import ArticleDetail from '../Screens/ArticleDetail/ArticleDetail';
 import NewsFeed from '../Screens/NewsFeed/NewsFeed';
 
 type RootStackParamList = {
-  ArticleDetail: {url: string; headerTitle: string};
   NewsFeed: undefined;
+  ArticleDetail: {url: string; headerTitle: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -35,7 +35,7 @@ const RootRouter: FC = () => {
         <Stack.Screen
           name="ArticleDetail"
           component={ArticleDetail}
-          options={({route}) => ({title: route.params.headerTitle})}
+          options={({route}) => ({title: route?.params?.headerTitle || ''})}
         />
       </Stack.Navigator>
     </NavigationContainer>

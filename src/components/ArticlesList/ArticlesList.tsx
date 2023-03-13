@@ -27,7 +27,7 @@ const ArticlesList: FC<ArticlesListProps> = ({
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [articleForEdit, setArticleForEdit] = useState<string | null>(null);
 
